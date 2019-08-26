@@ -1,3 +1,18 @@
+#' predictglmnetRatser
+#'
+#' This function is to predict the glmnet model object on raster data. It accepts
+#' the quadratic transformation if it was provided in the original model fit.
+#'
+#' @param r raster file
+#' @param model glmnet model
+#' @param slambda the lambda selection
+#' @param quadratic logical. If the model was fitted with quadratic terms
+#' @param trainingOriginalData original training data with only the predictor columns
+#' @param factors factor variables in the model
+#' @param filename output file directory for the predicted map. If provided, the map
+#' will be save in the disk.
+#'
+#' @export
 predictglmnetRatser <- function(r, model, slambda = "lambda.min", quadratic = TRUE, trainingOriginalData = NULL, factors = NULL, filename = NULL){
   require(raster)
   require(glmnet)
@@ -48,3 +63,40 @@ predictglmnetRatser <- function(r, model, slambda = "lambda.min", quadratic = TR
   }
   return(y)
 }
+
+
+#' predictSVMtoRaster
+#'
+#' This function is to predict the e1071 model object on raster data.
+#'
+#' @inheritParams predictglmnetRatser
+#' @param model svm model from e1071 package
+#' @inheritParams predictglmnetRatser
+#' @inheritParams predictglmnetRatser
+#'
+#' @return
+#' @export
+#'
+#' @examples
+predictSVMtoRaster <- function(r, model, factors = NULL, filename = NULL){
+  require(raster)
+  require(e1071)
+  d <- rasterToPoints(r, spatial = TRUE)
+  if(!is.null(factors)){
+    for(i in names(factors)){
+      d@data[,i] <- as.factor(d@data[,i])
+    }
+  }
+  cat("Preparation is done... \n")
+  p <- predict(model, d@data, probability = TRUE)
+  cat("Prediction is done... \n")
+  d$pred <- attr(p, "probabilities")[,"1"]
+  y <- rasterize(d, r, field = "pred")
+  cat("Finalising... \n")
+  if(!is.null(filename)){
+    writeRaster(y, filename)
+  }
+  return(y)
+}
+
+
