@@ -1,5 +1,5 @@
 #' Focal extraction from a raster object
-#'  function to extract raster values from neighbourhood of points
+#' A function to extract raster values from neighbourhood of points.
 #'
 #' @param r raster layer
 #' @param p the spatial point or sf objects
