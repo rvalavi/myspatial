@@ -7,9 +7,9 @@
 upperCatchment(ccm2, r, myfun = "mean")
 }
 \arguments{
-\item{ccm2}{the CCM2 spatil polygon layer of the subcatchments}
+\item{ccm2}{the CCM2 spatil polygon layer of subcatchments}
 
-\item{r}{a raster later or RasterStack for extracting values}
+\item{r}{a Raster later or RasterStack for extracting values}
 
 \item{myfun}{a function to summarise the values of input raster e.g. mean or sum}
 }
