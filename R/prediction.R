@@ -100,3 +100,36 @@ predictSVMtoRaster <- function(r, model, factors = NULL, filename = NULL){
 }
 
 
+
+#' Range change
+#'
+#' The values show:
+#' 0 = unsiitable
+#' 1 = loss
+#' 2 = stable
+#' 3 = gain
+#'
+#' @param current the current raster map
+#' @param future the future raster map
+#' @param threshold optional. A threshold to change probability map to 0 and 1
+#'
+#' @return
+#' @export
+#'
+#' @examples
+rangeChange <- function(current, future, threshold = NULL){
+  if(!is.null(threshold)){
+    current <- raster::reclassify(current, c(-Inf,threshold,0, threshold,Inf,1))
+    future <- raster::reclassify(future, c(-Inf,threshold,0, threshold,Inf,1))
+  }
+  rr <- raster::overlay(current, future, fun=function(x, y){x + y * 2} )
+  names(rr) <- "range_change"
+  rr <- raster::ratify(rr)
+  rat <- levels(rr)[[1]]
+  rat$range <- c("unsutable", "loss", "gain", "stable")
+  rat$code <- c(0, -1, 1, 2)
+  levels(rr) <- rat
+  rasterVis::levelplot(rr, par.settings = rasterVis::rasterTheme(viridis::viridis(4, direction = -1)))
+  return(rr)
+}
+
