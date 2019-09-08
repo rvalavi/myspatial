@@ -124,12 +124,12 @@ rangeChange <- function(current, future, threshold = NULL){
   }
   rr <- raster::overlay(current, future, fun=function(x, y){x + y * 2} )
   names(rr) <- "range_change"
-  rr <- raster::ratify(rr)
-  rat <- levels(rr)[[1]]
+  rr <- raster::as.factor(rr)
+  rat <- data.frame(ID = c(0:3))
   rat$range <- c("unsutable", "loss", "gain", "stable")
   rat$code <- c(0, -1, 1, 2)
   levels(rr) <- rat
-  rasterVis::levelplot(rr, par.settings = rasterVis::rasterTheme(viridis::viridis(4, direction = -1)))
+  plot(rasterVis::levelplot(rr, par.settings = rasterVis::rasterTheme(viridis::viridis(4, direction = -1))))
   return(rr)
 }
 
