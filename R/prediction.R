@@ -138,6 +138,7 @@ rangeChange <- function(current, future, threshold = NULL){
   change$Value[8] <- change$Value[5] / change$Value[1] * 100
   change$Value[9] <- sum(tab$Freq[c(3,4)]) - sum(tab$Freq[c(2,4)])
   change$Value[10] <- change$Value[9] / sum(tab$Freq[c(2,4)]) * 100
+  change$Value <- round(change$Value, 2)
   names(rr) <- "range_change"
   rr <- raster::as.factor(rr)
   rat <- data.frame(ID = c(0:3))
