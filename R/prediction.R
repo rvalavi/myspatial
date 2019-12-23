@@ -13,7 +13,7 @@
 #' will be save in the disk.
 #'
 #' @export
-predictglmnetRatser <- function(r, model, slambda = "lambda.min", quadratic = TRUE, trainingOriginalData = NULL, factors = NULL, filename = NULL){
+predict_glmnet_ratser <- function(r, model, slambda = "lambda.min", quadratic = TRUE, trainingOriginalData = NULL, factors = NULL, filename = NULL){
   require(raster)
   require(glmnet)
   # check the requirements
@@ -23,11 +23,15 @@ predictglmnetRatser <- function(r, model, slambda = "lambda.min", quadratic = TR
   if(is.list(factors)){
     factors <- names(factors)
   }
-  myvars <- names(trainingOriginalData)
-  if(!all(names(trainingOriginalData) %in% names(r))){
-    stop("The raster and training columns do not match")
+  if(!is.null(trainingOriginalData)){
+    myvars <- names(trainingOriginalData)
+    if(!all(names(trainingOriginalData) %in% names(r))){
+      stop("The raster and training columns do not match")
+    }
+    r <- r[[myvars]]
+  } else{
+    myvars <- names(r)
   }
-  r <- r[[myvars]]
   # function for quadratic tranformations
   glmnetPoly <- function(mydf, mydf2, col){
     trainCol <- which(names(mydf) == col)
@@ -47,12 +51,15 @@ predictglmnetRatser <- function(r, model, slambda = "lambda.min", quadratic = TR
   }
   testing <- rasterToPoints(r, spatial = TRUE)
   for(m in myvars){
-    if(m %in% factors == FALSE){
-      testing <- glmnetPoly(trainingOriginalData, testing, m)
-    } else{
+    if(m %in% factors){
       testing@data[,m] <- as.factor(testing@data[,m])
+    } else{
+      if(quadratic){
+        testing <- glmnetPoly(trainingOriginalData, testing, m)
+      }
     }
   }
+  testing <- testing[complete.cases(testing@data),]
   cat("Preparation is done... \n")
   testing_sparse <- sparse.model.matrix(~. -1, testing@data)
   testing@data$pred = as.numeric(predict(model, testing_sparse, type = "response", s = slambda))
@@ -78,7 +85,7 @@ predictglmnetRatser <- function(r, model, slambda = "lambda.min", quadratic = TR
 #' @export
 #'
 #' @examples
-predictSVMtoRaster <- function(r, model, factors = NULL, filename = NULL){
+predict_svm_to_raster <- function(r, model, factors = NULL, filename = NULL){
   require(raster)
   require(e1071)
   d <- rasterToPoints(r, spatial = TRUE)
