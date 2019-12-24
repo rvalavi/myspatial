@@ -13,7 +13,7 @@
 #' will be save in the disk.
 #'
 #' @export
-predict_glmnet_ratser <- function(r, model, slambda = "lambda.min", quadratic = TRUE, trainingOriginalData = NULL, factors = NULL, filename = NULL){
+predict_glmnet_raster <- function(r, model, slambda = "lambda.min", quadratic = TRUE, trainingOriginalData = NULL, factors = NULL, filename = NULL){
   require(raster)
   require(glmnet)
   # check the requirements
