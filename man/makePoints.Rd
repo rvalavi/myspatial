@@ -13,6 +13,9 @@ makePoints(sp = TRUE, col = "red", ...)
 
 \item{...}{}
 }
+\value{
+
+}
 \description{
 Degitizing points on a spatial plot
 }

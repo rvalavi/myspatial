@@ -13,6 +13,9 @@ upperCatchment(ccm2, r, myfun = "mean")
 
 \item{myfun}{a function to summarise the values of input raster e.g. mean or sum}
 }
+\value{
+
+}
 \description{
 Extract and summarise raster values for upper-catchments
 }

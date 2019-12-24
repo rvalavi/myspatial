@@ -13,6 +13,9 @@ rasterPlot(map, cols = terrain.colors(10), legend = TRUE)
 
 \item{legend}{logical. to show legend or not.}
 }
+\value{
+
+}
 \description{
 Plot probability raster of species distribution models in ggplot,
 with histogram of the values.

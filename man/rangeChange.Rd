@@ -13,6 +13,9 @@ rangeChange(current, future, threshold = NULL)
 
 \item{threshold}{optional. A threshold to change probability map to 0 and 1}
 }
+\value{
+
+}
 \description{
 The values of raster show:
 0 = unsiitable

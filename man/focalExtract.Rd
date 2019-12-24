@@ -5,8 +5,14 @@
 \title{Focal extraction from a raster object
 A function to extract raster values from neighbourhood of points.}
 \usage{
-focalExtract(r, p, neighbourhood = c(3, 3), fun = mean, na.rm = TRUE,
-  progress = TRUE)
+focalExtract(
+  r,
+  p,
+  neighbourhood = c(3, 3),
+  fun = mean,
+  na.rm = TRUE,
+  progress = TRUE
+)
 }
 \arguments{
 \item{r}{raster layer}
@@ -21,6 +27,9 @@ no function is provided, a list is retuned}
 \item{na.rm}{logical. If na.rm=TRUE (the default value), NA values are removed before fun is applied.}
 
 \item{progress}{logical. Show a progress par.}
+}
+\value{
+
 }
 \description{
 Focal extraction from a raster object
