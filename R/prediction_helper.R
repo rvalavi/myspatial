@@ -11,7 +11,8 @@
 #'
 #' @examples
 glmnetPoly <- function(train, cols = NULL, all = TRUE){
-  if(all){
+  if(is.null(cols)){
+    all <- TRUE
     cols <- colnames(train)
   }
   for(i in cols){
