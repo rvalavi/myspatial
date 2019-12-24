@@ -2,7 +2,7 @@
 % Please edit documentation in R/prediction.R
 \name{predict_glmnet_ratser}
 \alias{predict_glmnet_ratser}
-\title{predict_glmnet_ratser}
+\title{predictglmnetRatser}
 \usage{
 predict_glmnet_ratser(
   r,

@@ -2,7 +2,7 @@
 % Please edit documentation in R/prediction.R
 \name{predict_svm_to_raster}
 \alias{predict_svm_to_raster}
-\title{predictSVMtoRaster}
+\title{predict SVM to Raster}
 \usage{
 predict_svm_to_raster(r, model, factors = NULL, filename = NULL)
 }
