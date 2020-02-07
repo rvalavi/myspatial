@@ -345,7 +345,7 @@ ggResponse2 <- function(models,
       down <- k*100-99
       up <- k*100
       pp[[k]] <- ggplot(data=finaltable[down:up,], aes(x=value, y=mean_pred)) +
-        geom_ribbon(aes(ymin = lowInf, ymax = uppInf), fill = "lightblue", alpha = 0.6) + geom_line() +
+        geom_ribbon(aes(ymin = lowInf, ymax = uppInf), fill = "grey70", alpha = 0.6) + geom_line() +
         xlab(toupper(names(covariates)[k])) + scale_y_continuous(name=responseName, limits = c(yMin, yMax)) +
         theme_bw()
     }
