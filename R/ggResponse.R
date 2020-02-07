@@ -24,6 +24,7 @@ ggResponse <- function(models,
   require(raster)
   require(dplyr)
   require(reshape)
+  require(cowplot)
   n <- 0
   categoricals <- c()
   if(is(covariates, "Raster")){
