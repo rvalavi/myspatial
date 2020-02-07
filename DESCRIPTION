@@ -1,7 +1,7 @@
 Package: myspatial
 Type: Package
 Title: A collection of functions for spatial data analysis
-Version: 0.1.1
+Version: 0.1.2
 Author: Roozbeh Valavi
 Maintainer: Roozbeh Valavi <valavi.r@gmail.com>
 Description: A collection of functions for spatial data analysis and modelling.
