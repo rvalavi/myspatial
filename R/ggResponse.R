@@ -22,7 +22,6 @@ ggResponse <- function(models,
                        responseName = "Prediction",
                        index = 2, ...){
   require(raster)
-  require(blockCV)
   require(dplyr)
   require(reshape)
   n <- 0
