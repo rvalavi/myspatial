@@ -20,3 +20,6 @@ rasterPlot(map, cols = terrain.colors(10), legend = TRUE)
 Plot probability raster of species distribution models in ggplot,
 with histogram of the values.
 }
+\author{
+Roozbeh Valavi
+}

@@ -19,3 +19,6 @@ makePoints(sp = TRUE, col = "red", ...)
 \description{
 Degitizing points on a spatial plot
 }
+\author{
+Roozbeh Valavi
+}

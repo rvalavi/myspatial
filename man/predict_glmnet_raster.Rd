@@ -34,3 +34,6 @@ will be save in the disk.}
 This function is to predict the glmnet model object on raster data. It accepts
 the quadratic transformation if it was provided in the original model fit.
 }
+\author{
+Roozbeh Valavi
+}

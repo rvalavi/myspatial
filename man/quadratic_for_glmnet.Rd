@@ -19,3 +19,6 @@ A data.frame with polynomial terms of the original dataset.
 \description{
 A function to creat quadratic terms for lasso and ridge
 }
+\author{
+Roozbeh Valavi
+}

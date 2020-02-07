@@ -23,3 +23,6 @@ The values of raster show:
 2 = stable
 3 = gain
 }
+\author{
+Roozbeh Valavi
+}

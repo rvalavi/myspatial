@@ -35,3 +35,6 @@ no function is provided, a list is retuned}
 Focal extraction from a raster object
 A function to extract raster values from neighbourhood of points.
 }
+\author{
+Roozbeh Valavi
+}

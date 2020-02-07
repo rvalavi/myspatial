@@ -19,3 +19,6 @@ upperCatchment(ccm2, r, myfun = "mean")
 \description{
 Extract and summarise raster values for upper-catchments
 }
+\author{
+Roozbeh Valavi
+}
