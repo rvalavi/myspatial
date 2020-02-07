@@ -5,6 +5,8 @@
 #' @param r a Raster later or RasterStack for extracting values
 #' @param myfun a function to summarise the values of input raster e.g. mean or sum
 #'
+#' @author Roozbeh Valavi
+#'
 #' @return
 #' @export
 #'

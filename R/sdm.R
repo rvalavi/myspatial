@@ -10,6 +10,8 @@
 #' @param future the future raster map
 #' @param threshold optional. A threshold to change probability map to 0 and 1
 #'
+#' @author Roozbeh Valavi
+#'
 #' @return
 #' @export
 #'

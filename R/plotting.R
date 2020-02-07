@@ -7,6 +7,8 @@
 #' @param cols a string vector containing the colours code
 #' @param legend logical. to show legend or not.
 #'
+#' @author Roozbeh Valavi
+#'
 #' @return
 #' @export
 #'

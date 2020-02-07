@@ -6,6 +6,8 @@
 #' @param cols Character. Column names to generate quadratic terms
 #' @param all If TRUE, all the columns are used to generate quadratic terms
 #'
+#' @author Roozbeh Valavi
+#'
 #' @return A data.frame with polynomial terms of the original dataset.
 #' @export
 #'
@@ -33,3 +35,4 @@ quadratic_for_glmnet <- function(df, cols = NULL, all = TRUE){
   }
   return(df)
 }
+

@@ -9,6 +9,8 @@
 #' @param na.rm logical. If na.rm=TRUE (the default value), NA values are removed before fun is applied.
 #' @param progress logical. Show a progress par.
 #'
+#' @author Roozbeh Valavi
+#'
 #' @return
 #' @export
 #'

@@ -12,6 +12,8 @@
 #' @param filename output file directory for the predicted map. If provided, the map
 #' will be save in the disk.
 #'
+#' @author Roozbeh Valavi
+#'
 #' @export
 predict_glmnet_raster <- function(r, model, slambda = "lambda.min", quadratic = TRUE, trainingOriginalData = NULL, factors = NULL, filename = NULL){
   require(raster)
@@ -88,7 +90,7 @@ predict_glmnet_raster <- function(r, model, slambda = "lambda.min", quadratic = 
 predict_svm_to_raster <- function(r, model, factors = NULL, filename = NULL){
   require(raster)
   require(e1071)
-  d <- rasterToPoints(r, spatial = TRUE)
+  d <- raster::rasterToPoints(r, spatial = TRUE)
   if(!is.null(factors)){
     for(i in names(factors)){
       d@data[,i] <- as.factor(d@data[,i])
@@ -98,10 +100,10 @@ predict_svm_to_raster <- function(r, model, factors = NULL, filename = NULL){
   p <- predict(model, d@data, probability = TRUE)
   cat("Prediction is done... \n")
   d$pred <- attr(p, "probabilities")[,"1"]
-  y <- rasterize(d, r, field = "pred")
+  y <- raster::rasterize(d, r, field = "pred")
   cat("Finalising... \n")
   if(!is.null(filename)){
-    writeRaster(y, filename)
+    raster::writeRaster(y, filename)
   }
   return(y)
 }

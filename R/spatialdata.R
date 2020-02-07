@@ -4,6 +4,8 @@
 #' @param col the color to plot points with
 #' @param ...
 #'
+#' @author Roozbeh Valavi
+#'
 #' @return
 #' @export
 #'
