@@ -2,7 +2,7 @@
 % Please edit documentation in R/ggResponse.R
 \name{ggResponse}
 \alias{ggResponse}
-\title{Partial dependence plot with ggplot}
+\title{Partial dependence plot by ggplot}
 \usage{
 ggResponse(
   models,
@@ -30,7 +30,7 @@ ggResponse(
 
 }
 \description{
-This function is used to plot partial dependence plot for any model that
+This function can be used to plot a partial dependence plot for any model that
 can predict on data.frames.
 }
 \author{

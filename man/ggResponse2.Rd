@@ -2,7 +2,7 @@
 % Please edit documentation in R/ggResponse.R
 \name{ggResponse2}
 \alias{ggResponse2}
-\title{Title}
+\title{Partial dependence plot by ggplot with %95 confidence interval}
 \usage{
 ggResponse2(
   models,
@@ -14,11 +14,27 @@ ggResponse2(
 )
 }
 \arguments{
-\item{...}{}
+\item{models}{a list of model objects (several fitted models on the same dataset)}
+
+\item{covariates}{the covariates used in model fitting in raster or data.frame}
+
+\item{colPlot}{integer. The number of colums for plotting}
+
+\item{responseName}{character. the name for y axes}
+
+\item{index}{integer. The columns used for prediction. This relates to the factor level for classification.}
+
+\item{...}{other arguments e.g. type = 'response' in GLMs or type = 'prob' in randomForest or the number of trees in BRT/GBM.}
 }
 \value{
 
 }
 \description{
-Title
+This function can be used to plot a partial dependence plot for any model that
+can predict on data.frames. This function calculates the %95 confidence interval
+created by multiple models (from a cross-validation, bootstrapping or multi-model)
+around each curve.
+}
+\author{
+Roozbeh Valavi
 }
