@@ -46,7 +46,7 @@ predict_glmnet_raster <- function(r,
   if(!is.null(quadraticObj)){
     testing@data <- predict.make_quadratic(object = quadraticObj, newdata = testing@data)
   }
-  testing <- testing[complete.cases(testing@data),]
+  testing <- testing[stats::complete.cases(testing@data),]
   if(verbose) cat("Preparation is done... \n")
   data_sparse <- sparse.model.matrix(~. -1, testing@data)
   testing@data$pred = as.numeric(predict(model, data_sparse, type = type, s = slambda))
