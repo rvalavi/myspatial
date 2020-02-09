@@ -1,8 +1,8 @@
 Package: myspatial
 Type: Package
 Title: A collection of functions for spatial data analysis and modelling
-Version: 0.1.3
-Date: 2020-02-08
+Version: 0.1.4
+Date: 2020-02-09
 Authors@R: c(person("Roozbeh", "Valavi", email = "valavi.r@gmail.com",
               role = c("aut", "cre")))
 URL: https://github.com/rvalavi/myspatial

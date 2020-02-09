@@ -1,74 +1,59 @@
-#' predictglmnetRatser
+#' predict cv.glmnet model to ratser
 #'
 #' This function is to predict the glmnet model object on raster data. It accepts
 #' the quadratic transformation if it was provided in the original model fit.
 #'
-#' @param r raster file
-#' @param model glmnet model
-#' @param slambda the lambda selection
-#' @param quadratic logical. If the model was fitted with quadratic terms
-#' @param trainingOriginalData original training data with only the predictor columns
+#' @param r a raster file
+#' @param model cv.glmnet model object
+#' @param slambda the values of the penalty lambda in cv.glmnet model.
+#' The default if "lambda.1se", alternatively "lambda.min" can be used.
+#' See predict.cv.glment help file in the glmnet pakage.
 #' @param factors factor variables in the model
 #' @param filename output file directory for the predicted map. If provided, the map
-#' will be save in the disk.
+#' will be save on the disk.
+#' @param type the prediction type. Could be "link" or "response". The default is "response".
+#' @param quadraticObj a make_quadratic object. If the model is fitted with the
+#' quadratic terms created by make_quadratic function, provide the make_quadratic object here.
+#' @param verbose logical. Control amount of printing...
 #'
 #' @author Roozbeh Valavi
 #'
 #' @export
-predict_glmnet_raster <- function(r, model, slambda = "lambda.min", quadratic = TRUE, trainingOriginalData = NULL, factors = NULL, filename = NULL){
-  require(raster)
+predict_glmnet_raster <- function(r,
+                                  model,
+                                  slambda = "lambda.1se",
+                                  type = "response",
+                                  quadraticObj = NULL,
+                                  factors = NULL,
+                                  filename = NULL,
+                                  verbose = TRUE){
   require(glmnet)
   # check the requirements
-  if(isTRUE(quadratic) && is.null(trainingOriginalData)){
-    stop("With quadratic, the training data should be provided")
-  }
   if(is.list(factors)){
     factors <- names(factors)
   }
-  if(!is.null(trainingOriginalData)){
-    myvars <- names(trainingOriginalData)
-    if(!all(names(trainingOriginalData) %in% names(r))){
-      stop("The raster and training columns do not match")
-    }
-    r <- r[[myvars]]
-  } else{
-    myvars <- names(r)
-  }
-  # function for quadratic tranformations
-  glmnetPoly <- function(mydf, mydf2, col){
-    trainCol <- which(names(mydf) == col)
-    testCol <- which(names(mydf2) == col)
-    # calculate the terms for training
-    xbar <- mean(mydf[,trainCol])
-    x1 <- mydf[,trainCol] - xbar
-    alpha <- sum(x1^3)/sum(x1^2)
-    # calculate the terms for testing
-    x1_2 <- mydf2@data[,testCol] - xbar
-    x2_2 <- x1_2^2 - alpha*x1_2
-    myx2 <- data.frame(mx1 = x1_2, mx2 = x2_2)
-    colnames(myx2) <- c(paste0(names(mydf)[trainCol], "1"), paste0(names(mydf)[trainCol], "2"))
-    final <- mydf2
-    final@data <- cbind(myx2, mydf2@data[,-testCol])
-    return(final)
-  }
-  testing <- rasterToPoints(r, spatial = TRUE)
+  if(!methods::is(r, "Raster")) stop("r should be a raster object.")
+  myvars <- names(r)
+  # if(!is.null(quadraticObj)){
+  #   r <- predict.make_quadratic(object = quadraticObj, newdata = r)
+  # }
+  testing <- raster::rasterToPoints(r, spatial = TRUE)
   for(m in myvars){
     if(m %in% factors){
       testing@data[,m] <- as.factor(testing@data[,m])
-    } else{
-      if(quadratic){
-        testing <- glmnetPoly(trainingOriginalData, testing, m)
-      }
     }
   }
+  if(!is.null(quadraticObj)){
+    testing@data <- predict.make_quadratic(object = quadraticObj, newdata = testing@data)
+  }
   testing <- testing[complete.cases(testing@data),]
-  cat("Preparation is done... \n")
-  testing_sparse <- sparse.model.matrix(~. -1, testing@data)
-  testing@data$pred = as.numeric(predict(model, testing_sparse, type = "response", s = slambda))
-  cat("Finalising... \n")
-  y <- rasterize(testing, r, field = "pred")
+  if(verbose) cat("Preparation is done... \n")
+  data_sparse <- sparse.model.matrix(~. -1, testing@data)
+  testing@data$pred = as.numeric(predict(model, data_sparse, type = type, s = slambda))
+  if(verbose) cat("Finalising... \n")
+  y <- raster::rasterize(testing, r, field = "pred")
   if(!is.null(filename)){
-    writeRaster(y, filename)
+    raster::writeRaster(y, filename)
   }
   return(y)
 }
@@ -87,7 +72,7 @@ predict_glmnet_raster <- function(r, model, slambda = "lambda.min", quadratic = 
 #' @export
 #'
 #' @examples
-predict_svm_to_raster <- function(r, model, factors = NULL, filename = NULL){
+predict_svm_raster <- function(r, model, factors = NULL, filename = NULL){
   require(raster)
   require(e1071)
   d <- raster::rasterToPoints(r, spatial = TRUE)
