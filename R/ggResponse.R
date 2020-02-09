@@ -157,23 +157,16 @@ ggResponse <- function(models,
 }
 
 
-#' Partial dependence plot by ggplot with %95 confidence interval
+#' Partial dependence plot by ggplot with 95 percent confidence interval
 #'
-#' This function can be used to plot a partial dependence plot for any model that
-#' can predict on data.frames. This function calculates the %95 confidence interval
-#' created by multiple models (from a cross-validation, bootstrapping or multi-model)
-#' around each curve.
+#' This function can be used to plot a partial dependence plot for any model that can predict on data.frames. This function calculates the 95 percent confidence interval created by multiple models (from cross-validation, bootstrapping or multi-model) around each curve.
 #'
-#' @param models a list of model objects (several fitted models on the same dataset)
-#' @param covariates the covariates used in model fitting, a raster or data.frame
-#' @param colPlot integer. The number of colums for plotting
-#' @param responseName character. the name for y axes
-#' @param index integer. The columns used for prediction. This relates to the factor level for classification.
-#' @param ... other arguments e.g. type = 'response' in GLMs or type = 'prob' in randomForest or the number of trees in BRT/GBM.
-#'
-#' @author Roozbeh Valavi
+#' @param models a list of model objects (several fitted models on the same dataset).
+#' @inheritParams ggResponse
 #'
 #' @export
+#'
+#' @author Roozbeh Valavi
 #'
 #' @examples
 ggResponse2 <- function(models,
