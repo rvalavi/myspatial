@@ -63,13 +63,15 @@ predict_glmnet_raster <- function(r,
 #'
 #' This function is to predict the e1071 model object on raster data.
 #'
-#' @inheritParams predictglmnetRatser
+#' @inheritParams predict_glmnet_raster
 #' @param model svm model from e1071 package
-#' @inheritParams predictglmnetRatser
-#' @inheritParams predictglmnetRatser
+#' @inheritParams predict_glmnet_raster
+#' @inheritParams predict_glmnet_raster
 #'
-#' @return
+#' @return a raster file for prediction
 #' @export
+#'
+#' @author Roozbeh Valavi
 #'
 #' @examples
 predict_svm_raster <- function(r, model, factors = NULL, filename = NULL){

@@ -4,7 +4,7 @@
 #' can predict on data.frames.
 #'
 #' @param models a model object
-#' @param covariates the covariates used in model fitting in raster or data.frame
+#' @param covariates the covariates used in model fitting, a raster or data.frame
 #' @param colPlot integer. The number of colums for plotting
 #' @param responseName character. the name for y axes
 #' @param index integer. The columns used for prediction. This relates to the factor level for classification.
@@ -12,7 +12,6 @@
 #'
 #' @author Roozbeh Valavi
 #'
-#' @return
 #' @export
 #'
 #' @examples
@@ -158,7 +157,6 @@ ggResponse <- function(models,
 }
 
 
-
 #' Partial dependence plot by ggplot with %95 confidence interval
 #'
 #' This function can be used to plot a partial dependence plot for any model that
@@ -167,11 +165,14 @@ ggResponse <- function(models,
 #' around each curve.
 #'
 #' @param models a list of model objects (several fitted models on the same dataset)
-#' @inheritParams ggResponse
+#' @param covariates the covariates used in model fitting, a raster or data.frame
+#' @param colPlot integer. The number of colums for plotting
+#' @param responseName character. the name for y axes
+#' @param index integer. The columns used for prediction. This relates to the factor level for classification.
+#' @param ... other arguments e.g. type = 'response' in GLMs or type = 'prob' in randomForest or the number of trees in BRT/GBM.
 #'
 #' @author Roozbeh Valavi
 #'
-#' @return
 #' @export
 #'
 #' @examples

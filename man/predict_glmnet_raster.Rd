@@ -2,33 +2,39 @@
 % Please edit documentation in R/prediction.R
 \name{predict_glmnet_raster}
 \alias{predict_glmnet_raster}
-\title{predictglmnetRatser}
+\title{predict cv.glmnet model to ratser}
 \usage{
 predict_glmnet_raster(
   r,
   model,
-  slambda = "lambda.min",
-  quadratic = TRUE,
-  trainingOriginalData = NULL,
+  slambda = "lambda.1se",
+  type = "response",
+  quadraticObj = NULL,
   factors = NULL,
-  filename = NULL
+  filename = NULL,
+  verbose = TRUE
 )
 }
 \arguments{
-\item{r}{raster file}
+\item{r}{a raster file}
 
-\item{model}{glmnet model}
+\item{model}{cv.glmnet model object}
 
-\item{slambda}{the lambda selection}
+\item{slambda}{the values of the penalty lambda in cv.glmnet model.
+The default if "lambda.1se", alternatively "lambda.min" can be used.
+See predict.cv.glment help file in the glmnet pakage.}
 
-\item{quadratic}{logical. If the model was fitted with quadratic terms}
+\item{type}{the prediction type. Could be "link" or "response". The default is "response".}
 
-\item{trainingOriginalData}{original training data with only the predictor columns}
+\item{quadraticObj}{a make_quadratic object. If the model is fitted with the
+quadratic terms created by make_quadratic function, provide the make_quadratic object here.}
 
 \item{factors}{factor variables in the model}
 
 \item{filename}{output file directory for the predicted map. If provided, the map
-will be save in the disk.}
+will be save on the disk.}
+
+\item{verbose}{logical. Control amount of printing...}
 }
 \description{
 This function is to predict the glmnet model object on raster data. It accepts

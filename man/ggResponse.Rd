@@ -16,7 +16,7 @@ ggResponse(
 \arguments{
 \item{models}{a model object}
 
-\item{covariates}{the covariates used in model fitting in raster or data.frame}
+\item{covariates}{the covariates used in model fitting, a raster or data.frame}
 
 \item{colPlot}{integer. The number of colums for plotting}
 
@@ -25,9 +25,6 @@ ggResponse(
 \item{index}{integer. The columns used for prediction. This relates to the factor level for classification.}
 
 \item{...}{other arguments e.g. type = 'response' in GLMs or type = 'prob' in randomForest or the number of trees in BRT/GBM.}
-}
-\value{
-
 }
 \description{
 This function can be used to plot a partial dependence plot for any model that
