@@ -31,7 +31,7 @@ make_quadratic <- function(df, cols = NULL){
   }
   xbar <- apply(df[,cols], 2, mean)
   x1 <- data.frame(mapply(`-`, df[,cols], xbar, SIMPLIFY = FALSE))
-  alpha <- apply(x1 ^ 3, 2, sum) / apply(x1 ^ 2, 2, sum)
+  alpha <- colSums(x1 ^ 3) / colSums(x1 ^ 2)
   # specify the output class
   finalList <- list(names = cols, xbars = xbar, alphas = alpha)
   class(finalList) <- c("make_quadratic")
