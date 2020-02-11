@@ -289,7 +289,13 @@ ggResponse2 <- function(models,
           levels(mydf[, c]) <- levels(covariates[,c])
         }
       }
-      predictions[,j] <- predict(models, mydf, ...) ## need to be modified according to the model
+      pred <- predict(models[[m]], mydf, ...)
+      if(ncol(pred) > 1){
+        predictions[,j] <- pred[,index]
+      } else{
+        predictions[,j] <- pred
+      }
+      # predictions[,j] <- predict(models, mydf, ...) ## need to be modified according to the model
     }
     if(length(categoricals) > 0){
       for(ct in cats){
