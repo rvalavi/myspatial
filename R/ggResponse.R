@@ -103,7 +103,7 @@ ggResponse <- function(models,
       }
     }
     pred <- predict(models, mydf, ...)
-    if(ncol(pred) > 1){
+    if(!is.vector(pred) && ncol(pred) > 1){
       predictions[,j] <- pred[,index]
     } else{
       predictions[,j] <- pred
@@ -264,7 +264,7 @@ ggResponse2 <- function(models,
           }
         }
         pred <- predict(models[[m]], mydf, ...)
-        if(ncol(pred) > 1){
+        if(!is.vector(pred) && ncol(pred) > 1){
           predictions[,j] <- pred[,index]
         } else{
           predictions[,j] <- pred
@@ -290,7 +290,7 @@ ggResponse2 <- function(models,
         }
       }
       pred <- predict(models[[m]], mydf, ...)
-      if(ncol(pred) > 1){
+      if(!is.vector(pred) && ncol(pred) > 1){
         predictions[,j] <- pred[,index]
       } else{
         predictions[,j] <- pred
