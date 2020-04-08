@@ -23,6 +23,7 @@ ggResponse <- function(models,
   require(raster)
   require(dplyr)
   require(reshape)
+  require(tidyverse)
   require(cowplot)
   n <- 0
   categoricals <- c()
@@ -62,7 +63,7 @@ ggResponse <- function(models,
     for(i in 1:nlayer){
       if(!is.factor(covariates[[i]])){
         ranges[,i] <- seq(min(covariates[,i], na.rm = TRUE), max(covariates[,i], na.rm = TRUE), length.out = 100)
-        meanVars[,i] <- rep(mean(covariates[,i], na.rm = TRUE), 100)
+        meanVars[,i] <- rep(mean(covariates[, i, drop = TRUE], na.rm = TRUE), 100)
       }
     }
   } else{
@@ -102,12 +103,18 @@ ggResponse <- function(models,
         levels(mydf[, c]) <- levels(covariates[,c])
       }
     }
+    # browser()
     pred <- predict(models, mydf, ...)
-    if(!is.vector(pred) && ncol(pred) > 1){
+    if(length(dim(pred)) > 1){
       predictions[,j] <- pred[,index]
     } else{
       predictions[,j] <- pred
     }
+    # if(!is.vector(pred) && ncol(pred) > 1){
+    #   predictions[,j] <- pred[,index]
+    # } else{
+    #   predictions[,j] <- pred
+    # }
   }
   # change the cats to numeric for melting
   if(length(categoricals) > 0){
@@ -220,12 +227,13 @@ ggResponse2 <- function(models,
     for(i in 1:nlayer){
       if(!is.factor(covariates[[i]])){
         ranges[,i] <- seq(min(covariates[,i]), max(covariates[,i]), length.out = 100)
-        meanVars[,i] <- rep(mean(covariates[,i]), 100)
+        meanVars[,i] <- rep(mean(covariates[,i, drop = TRUE]), 100)
       }
     }
   } else{
     stop("covariates should be a raster layer or data.frame object contining variables used in the model")
   }
+  # browser()
   # calculate the means and ranges for categorical vars
   if(length(categoricals) > 0){
     cats <- which(names(covariates) %in% categoricals) # categorical vars
@@ -264,12 +272,16 @@ ggResponse2 <- function(models,
           }
         }
         pred <- predict(models[[m]], mydf, ...)
-        if(!is.vector(pred) && ncol(pred) > 1){
+        # if(!is.vector(pred) && ncol(pred) > 1){
+        #   predictions[,j] <- pred[,index]
+        # } else{
+        #   predictions[,j] <- pred
+        # }
+        if(length(dim(pred)) > 1){
           predictions[,j] <- pred[,index]
         } else{
           predictions[,j] <- pred
         }
-        # predictions[,j] <- predict(models[[m]], mydf, ...)
       }
       if(length(categoricals) > 0){
         for(ct in cats){
