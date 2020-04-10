@@ -94,7 +94,7 @@ ggResponse <- function(models,
   }
   # predict with the model
   for(j in 1:nlayer){
-    mydf <- cbind(ranges[,j], meanVars[,-j])
+    mydf <- cbind(ranges[,j, drop = FALSE], meanVars[,-j, drop = FALSE])
     names(mydf)[1] <- colnames(meanVars)[j]
     for(c in categoricals){
       if(is(covariates, "Raster")){
@@ -262,7 +262,7 @@ ggResponse2 <- function(models,
     for(m in 1:nmodel){
       # predict with the model
       for(j in 1:nlayer){
-        mydf <- cbind(ranges[,j], meanVars[,-j])
+        mydf <- cbind(ranges[,j, drop = FALSE], meanVars[,-j, drop = FALSE])
         names(mydf)[1] <- colnames(meanVars)[j]
         for(c in categoricals){
           if(is(covariates, "Raster")){
