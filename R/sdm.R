@@ -46,7 +46,9 @@ rangeChange <- function(current, future, threshold = NULL){
   levels(rr) <- rat
   cat("The range change (values are nummber of pixels):\n")
   print(change)
-  plot(rasterVis::levelplot(rr, par.settings = rasterVis::rasterTheme(viridis::viridis(4, direction = -1))))
+  plot(rasterVis::levelplot(rr, par.settings = rasterVis::rasterTheme(c("gray92", "#DE646A", "#35B779FF", "gray60"))))
   return(rr)
 }
+
+
 
