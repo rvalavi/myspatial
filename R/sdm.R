@@ -41,7 +41,7 @@ rangeChange <- function(current, future, threshold = NULL){
   names(rr) <- "range_change"
   rr <- raster::as.factor(rr)
   rat <- data.frame(ID = c(0:3))
-  rat$range <- c("Unsutable", "Loss", "Gain", "Stable")
+  rat$range <- c("Unsuitable", "Loss", "Gain", "Stable")
   rat$code <- c(0, -1, 1, 2)
   levels(rr) <- rat
   cat("The range change (values are nummber of pixels):\n")
