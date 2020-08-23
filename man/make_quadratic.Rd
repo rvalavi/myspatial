@@ -4,19 +4,21 @@
 \alias{make_quadratic}
 \title{Orthogonal quadratic polynomials for glmnet}
 \usage{
-make_quadratic(df, cols = NULL)
+make_quadratic(df, cols = NULL, verbose = TRUE)
 }
 \arguments{
 \item{df}{a data.frame, typically the training data.}
 
 \item{cols}{the name or index of the columns to be transformed. If NULL, all the columns will be transformed.
-The factor columns won't be transfromed.}
+The factor columns won't be transformed.}
+
+\item{verbose}{logical. print messages.}
 }
 \value{
 an object of make_quadratic that can be used to predict on rasters and data.frames
 }
 \description{
-A function to creat quadratic terms for glmnet functions i.e. lasso and ridge regression.
+A function to create quadratic terms for glmnet functions i.e. lasso and ridge regression.
 The output is an object of make_quadratic that can be used to predict on rasters and data.frames
 for creating the quadratic terms.
 }

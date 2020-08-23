@@ -1,12 +1,13 @@
 #' Orthogonal quadratic polynomials for glmnet
 #'
-#' A function to creat quadratic terms for glmnet functions i.e. lasso and ridge regression.
+#' A function to create quadratic terms for glmnet functions i.e. lasso and ridge regression.
 #' The output is an object of make_quadratic that can be used to predict on rasters and data.frames
 #' for creating the quadratic terms.
 #'
 #' @param df a data.frame, typically the training data.
 #' @param cols the name or index of the columns to be transformed. If NULL, all the columns will be transformed.
-#' The factor columns won't be transfromed.
+#' The factor columns won't be transformed.
+#' @param verbose logical. print messages.
 #'
 #' @author Roozbeh Valavi
 #'
@@ -14,7 +15,7 @@
 #' @export
 #'
 #' @examples
-make_quadratic <- function(df, cols = NULL){
+make_quadratic <- function(df, cols = NULL, verbose = TRUE){
   if(is.null(cols)){
     cols <- colnames(df)
   }
@@ -23,7 +24,9 @@ make_quadratic <- function(df, cols = NULL){
   }
   # remove the factors
   if(any(sapply(df[,cols], is.factor))){
-    message("The factor columns were removed form cols: ", cols[which(sapply(df[,cols], is.factor))])
+    if(verbose){
+      message("The factor columns were removed form cols: ", cols[which(sapply(df[,cols], is.factor))])
+    }
     cols <- cols[-which(sapply(df[,cols], is.factor))]
   }
   if(!all(is.element(cols, colnames(df)))){
