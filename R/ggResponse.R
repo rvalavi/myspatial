@@ -128,6 +128,7 @@ ggResponse <- function(models,
   prd <- reshape::melt(predictions)
   # nrow(prd); head(prd, 10)
   finaltable <- dplyr::bind_cols(val, prd)
+  names(finaltable) <- c("variable", "value", "variable1", "value1")
   yMin <- min(finaltable$value1)
   yMax <- max(finaltable$value1)
   # create the plots
@@ -135,8 +136,10 @@ ggResponse <- function(models,
   for(k in 1:nlayer){
     down <- k*100-99
     up <- k*100
-    pp[[k]] <- ggplot(data=finaltable[down:up,], aes(x=value, y=value1)) + geom_line() +
-      xlab(stringr::str_to_upper(names(covariates)[k])) + scale_y_continuous(name=responseName, limits = c(yMin, yMax)) +
+    pp[[k]] <- ggplot(data=finaltable[down:up,], aes(x=value, y=value1)) +
+      geom_line() +
+      xlab(stringr::str_to_upper(names(covariates)[k])) +
+      scale_y_continuous(name=responseName, limits = c(yMin, yMax)) +
       theme_bw()
   }
   # create plot for categorical variables
@@ -162,6 +165,8 @@ ggResponse <- function(models,
   cowplot::plot_grid(plotlist = pp, ncol = colPlot)
   # return(pp)
 }
+
+
 
 
 #' Partial dependence plot by ggplot with 95 percent confidence interval
