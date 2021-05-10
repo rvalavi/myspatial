@@ -68,7 +68,7 @@ predict.make_quadratic <- function(object, newdata, ...){
     for(i in ncl){
       x1 <- newdata[,i] - object$xbars[i]
       x2 <- x1 ^ 2 - object$alphas[i] * x1
-      newdata <- newdata[,-which(names(newdata) == i)]
+      newdata <- newdata[,-which(names(newdata) == i), drop = FALSE]
       newdata[,ncol(newdata) + 1] <- x1
       names(newdata)[ncol(newdata)] <- paste0(i, "_1")
       newdata[,ncol(newdata) + 1] <- x2
